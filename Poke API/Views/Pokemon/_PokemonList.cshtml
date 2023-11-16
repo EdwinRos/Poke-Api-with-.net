@@ -1,0 +1,41 @@
+﻿@model List<Poke_API.Models.Pokemon>
+
+<div id="pokemonList" class="row">
+    @foreach (var pokemon in Model)
+    {
+        <div class="col-4 mb-4">
+            <div class="card" style="width: 18rem;">
+                <img src="@pokemon.ImageUrl" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h1 class="card-title">@pokemon.Name</h1>
+                    <div class="row">
+                        <div class="col border border-secondary">
+                            <p class="fs-4">N# pokedex</p>
+                            <p class="lead">@pokemon.numPokedex</p>
+                        </div>
+                        <div class="col border border-secondary">
+                            <h4 class="h4">
+                                <p class="fs-4">Tipo</p>
+                                <ul>
+                                    @foreach (var type in pokemon.Types)
+                                    {
+                                        <li>@type</li>
+                                    }
+                                </ul>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col">
+                            <!-- Agregar el botón "Agregar a equipo" con un identificador único para el Pokemon -->
+                            <button class="btn btn-primary" onclick="addToTeam('@pokemon.Name')">Agregar a equipo</button>
+                        </div>
+                        <div class="col">
+                            <a asp-controller="Pokemon" asp-action="GetPokemonDetail" asp-route-id="@pokemon.numPokedex" class="btn btn-primary">Ver mas</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

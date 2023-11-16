@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "fcXK04mlrz20GfudM0YwSWO2lm0d/AUhcHyK0MSxoXzYEz2KttRQt0ssthLVR2BAyaWe2R020u4pH0EAbf4raQ==",
+  "success": true,
+  "projectFilePath": "/Users/EdwinRos/Projects/Poke API/Poke API/Poke API.csproj",
+  "expectedPackageFiles": [
+    "/Users/EdwinRos/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

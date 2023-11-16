@@ -1,0 +1,23 @@
+﻿@model Poke_API.Models.PokemonDetails
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="@Model.imagePokemon" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-8">
+            <h1 class="h1">@Model.name</h1>
+            <p class="lead">Pokémon ID: @Model.id</p>
+
+            <h2>Types:</h2>
+            <ul>
+                @foreach (var type in Model.Types)
+                {
+                    <li>@type.Type.Name</li>
+                }
+            </ul>
+
+            <button class="btn btn-primary" onclick="addToTeam('@Model.name')">Agregar a equipo</button>
+        </div>
+    </div>
+</div>

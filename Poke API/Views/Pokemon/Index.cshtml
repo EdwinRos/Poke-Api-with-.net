@@ -1,0 +1,109 @@
+﻿@using Poke_API.Models
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="h1">Poke API</h1>
+        <p class="lead">Escoge a tu equipo Pokemon</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group mb-3 mt-auto">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <img src="https://miro.medium.com/v2/resize:fit:300/0*NsHVyfpJ2k7ixTAd" width="40" height="40" />
+                        </span>
+                    </div>
+                    <input type="text" id="searchInput" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Lista del equipo del Pokemon -->
+                <div class="col-md-12">
+                    <h2 class="h2">Tu equipo Pokemon</h2>
+                    <ul id="userTeamList" class="list-group">
+                        @*En esta parte se van a mostrar los integrantes del equipo*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Lista de Pokémon -->
+    <div class="row" id="pokemonList">
+        @if (Model.Results != null && Model.Results.Count > 0)
+        {
+            @foreach (var pokemon in Model.Results)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="@pokemon.ImageUrl" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h1 class="card-title">@pokemon.Name</h1>
+                            <div class="row">
+                                <div class="col border border-secondary">
+                                    <p class="fs-4">N# pokedex</p>
+                                    <p class="lead">@pokemon.numPokedex</p>
+                                </div>
+                                <div class="col border border-secondary">
+                                    <h4 class="h4">
+                                        <p class="fs-4">Tipo</p>
+                                        <ul>
+                                            @foreach (var type in pokemon.Types)
+                                            {
+                                                <li>@type</li>
+                                            }
+                                        </ul>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col">
+                                    <!-- Agregar el botón "Agregar a equipo" con un identificador único para el Pokemon -->
+                                    <button class="btn btn-primary" onclick="addToTeam('@pokemon.Name')">Agregar a equipo</button>
+                                </div>
+                                <div class="col">
+                                    <a asp-controller="Pokemon" asp-action="GetPokemonDetail" asp-route-id="@pokemon.numPokedex" class="btn btn-primary">Ver mas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No se encontraron resultados de Pokémon.</p>
+        }
+    </div>
+
+    <!-- Navegación de página -->
+    <div style="text-align: center; margin-top: 20px;">
+        <!-- Enlace para la página Anterior -->
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })">&laquo; Anterior</a>
+        }
+
+        <!-- Números de página -->
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            @if (i == ViewBag.CurrentPage)
+            {
+                <span>@i</span>
+            }
+            else
+            {
+                <a href="@Url.Action("Index", new { page = i })">@i</a>
+            }
+        }
+
+        <!-- Enlace para la página Siguiente -->
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Siguiente &raquo;</a>
+        }
+    </div>
+</div>
